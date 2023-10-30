@@ -1,0 +1,16 @@
+<h1>Seznam článků</h1>
+<table>
+<?php foreach ($clanky as $clanek) : ?>
+	<tr>
+		<td>
+			<h2><a href="clanek/<?= $clanek['url'] ?>"><?= $clanek['titulek'] ?></a></h2>
+			<?= $clanek['popisek'] ?>
+			<!--?php if ($admin) : ?>
+			< ?php endif ?-->
+				<br />
+				<a href="editor/<?= $clanek['url'] ?>">Editovat</a>
+				<a href="clanek/<?= $clanek['url'] ?>/odstranit">Odstranit</a>
+		</td>
+	</tr>
+<?php endforeach ?>
+</table>

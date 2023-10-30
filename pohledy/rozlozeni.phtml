@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <base href="/localhost" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Freelancer - Templates farm Theme</title>
+        <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="../assets/favicon.ico" />
+        <!-- Font Awesome icons (free version)-->
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+        <!-- Google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="css/styles.css" rel="stylesheet" />
+</head>
+<body id="page-top">
+        <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand" href="prehled#page-top">Templates farm</a>
+			<?php if ((isset($user_name))&((!((isset($userPrivatUrl))&($userPrivatUrl != $privatUrlId)))||(empty($userPrivatUrl)))) : ?> 
+                <button type="button" class="btn btn-outline-primary btn-lg text-uppercase" disabled>
+				<?= $user_name ?>
+			<?php else : ?>
+                <a class="navbar-brand" href="<?= $prehled ="template/preview#summary";?>">
+                <button type="button" class="btn btn-outline-info text-uppercase">
+                Dostupní autoři</button>
+                </a>
+		    <?php endif ?>
+
+            <?php if (($url)) : ?>
+                <button type="button" class="btn btn-outline-warning btn-lg text-uppercase" disabled>
+				<?= $url ?>
+			<?php endif ?></button> 
+
+            <button class="navbar-toggler text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                Menu
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <?php if (isset($user_name)) : ?>
+                <?php $prehled ="template/" . $user_id . "#summary";?>
+                <?php if ((isset($userPrivatUrl))&($userPrivatUrl == $privatUrlId)) : ?>
+                    <?php $prehled ="template/" . $userPrivatUrl . "#summary";?>
+                <?php endif ?>
+			<?php else : ?>
+                <?php $prehled ="template/all#summary";?>
+			<?php endif ?>
+
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#portfolio">Odkazy</a></li>
+                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="<?= $prehled ?>">Přehled</a></li>
+                    <?php if (($url)) :?>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="templator<?= $url ?>#templator" title="Editace :<?= $url ?>">Edit formulář</a></li>
+                    <?php else :?>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="templator#templator" title="Nový profil<?= $url ?>">Nový web</a></li>
+                    <?php endif ?>
+                    <?php if (((!isset($user_name))||(empty($url)))): ?>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#about">Návrhy webů</a></li>
+                    <?php endif ?>
+                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#contact">Kontakt</a></li>
+                </ul>
+            </div>
+            <div class="mx-12 mx-lg-1">
+                <?php if ($uzivatel) :?>
+                    <div class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="administrace#login"><i class="fas fa-right-to-bracket fa-2xl"></i></a></div>
+                <?php else :?>
+                    <div class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="prihlaseni#login"><i class="fas fa-right-to-bracket fa-2xl"></i></a></div>
+                <?php endif ?>
+            </div>
+        </div>
+    </nav>
+
+        <!-- Masthead-->
+    <header class="masthead bg-primary text-white text-center">
+        <div class="container d-flex align-items-center flex-column">
+                <!-- Masthead Avatar Image-->
+            <img class="masthead-avatar mb-5" src="../assets/img/avataaars.svg" alt="..." />
+                <!-- Masthead Heading-->
+            <h1 class="masthead-heading text-uppercase mb-0">Templates farm</h1>
+                <!-- Icon Divider-->
+            <div class="divider-custom divider-light">
+                <div class="divider-custom-line"></div>
+                <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+                <div class="divider-custom-line"></div>
+            </div>
+                <!-- Masthead Subheading-->
+            <p class="masthead-subheading font-weight-light mb-0"> Web Designs </p>
+        </div>
+    </header>
+
+<!-- Links Section-->
+<section class="page-section portfolio" id="portfolio">
+<div class="container">
+        <!-- Links Section Heading-->
+    <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Odkazy na hotové weby</h2>
+        <!-- Icon Divider-->
+    <div class="divider-custom">
+        <div class="divider-custom-line"></div>
+        <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+        <div class="divider-custom-line"></div>
+    </div>
+        <!-- Links Grid Items-->
+    <div class="row justify-content-center">
+            <!-- Links Item 1-->
+        <div class="col-md-6 col-lg-4 mb-2">
+            <div class="row">
+                <a href="../templates/mostudio/index.html" target="_blank">
+                    <img src="../assets/img/portfolio/cabin.jpg" alt="direct link" style="position: relative; top: 42px; left: 12px; width:42px;height:32px;" />
+                </a>
+                <div>
+                    <div class="portfolio-item mx-auto" data-bs-toggle="modal" data-bs-target="#portfolioModal1">
+                        <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
+                            <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
+                        </div>
+                        <img class="img-fluid" src="../assets/img/portfolio/cabin.png" alt="..." />
+                    </div>
+                </div>
+            </div>
+        </div>
+            <!-- Links Item 2-->
+        <div class="col-md-6 col-lg-4 mb-2">
+            <div class="row">
+                <a href="../templates/grayscale/index.html" target="_blank">
+                    <img src="../assets/img/portfolio/cakeh.jpg" alt="direct link" style="position: relative; top: 42px; left: 12px; width:42px;height:32px;" />
+                </a> 
+                <div>
+                    <div class="portfolio-item mx-auto" data-bs-toggle="modal" data-bs-target="#portfolioModal2">
+                        <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
+                            <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
+                        </div>
+                        <img class="img-fluid" src="../assets/img/portfolio/cake.png" alt="..." />
+                    </div>
+                </div>
+            </div>
+        </div>
+            <!-- Links Item 3-->
+        <div class="col-md-6 col-lg-4 mb-2">
+            <div class="row">
+                <a href="../templates/personal/index.html" target="_blank">
+                    <img src="../assets/img/portfolio/circush.jpg" alt="direct link" style="position: relative; top: 42px; left: 12px; width:42px;height:32px;" />
+                </a> 
+                <div>
+                    <div class="portfolio-item mx-auto" data-bs-toggle="modal" data-bs-target="#portfolioModal3">
+                        <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
+                            <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
+                        </div>
+                        <img class="img-fluid" src="../assets/img/portfolio/circus.png" alt="..." />
+                    </div>
+                </div>
+            </div>
+        </div>
+            <!-- Links Item 4-->
+        <div class="col-md-6 col-lg-4 mb-2 mb-lg-0">
+            <div class="row">
+                <a href="../templates/folio/index.html" target="_blank">
+                    <img src="../assets/img/portfolio/circush.jpg" alt="direct link" style="position: relative; top: 42px; left: 12px; width:42px;height:32px;" />
+                </a> 
+                <div>
+                    <div class="portfolio-item mx-auto" data-bs-toggle="modal" data-bs-target="#portfolioModal4">
+                        <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
+                            <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
+                        </div>
+                        <img class="img-fluid" src="../assets/img/portfolio/folio.png" alt="..." />
+                    </div>
+                </div>
+            </div>
+        </div>
+            <!-- Links Item 5-->
+        <div class="col-md-6 col-lg-4 mb-2 mb-md-0">
+            <div class="row">
+                    <a href="../templates/magnum/index.html" target="_blank">
+                        <img src="../assets/img/portfolio/circush.jpg" alt="direct link" style="position: relative; top: 42px; left: 12px; width:42px;height:32px;" />
+                    </a> 
+                    <div>
+                        <div class="portfolio-item mx-auto" data-bs-toggle="modal" data-bs-target="#portfolioModal5">
+                            <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
+                                <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
+                            </div>
+                            <img class="img-fluid" src="../assets/img/portfolio/magnum.png" alt="..." />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Links Item 6-->
+        <div class="col-md-6 col-lg-4">
+            <div class="row">
+                <a href="../templates/minimus/index.html" target="_blank">
+                    <img src="../assets/img/portfolio/circush.jpg" alt="direct link" style="position: relative; top: 42px; left: 12px; width:42px;height:32px;" />
+                </a> 
+                <div>
+                    <div class="portfolio-item mx-auto" data-bs-toggle="modal" data-bs-target="#portfolioModal6">
+                        <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
+                            <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
+                        </div>
+                        <img class="img-fluid" src="../assets/img/portfolio/submarine.png" alt="..." />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</section>
+
+<!-- Temp Section-->
+
+<?php foreach ($zpravy as $zprava) : ?>
+<h5 class="zprava"><?= $zprava ?></h5>
+<?php endforeach ?>
+<?php $this->kontroler->vypisPohled(); // vložení aktuálního pohledu do šablony ?>
+
+
+        <!-- About Section-->
+    <section class="page-section footer text-white mb-0" id="about">
+        <div class="container">
+                <!-- About Section Heading-->
+            <h2 class="page-section-heading text-center text-uppercase text-white">Návrhy webů</h2>
+                <!-- Icon Divider-->
+            <div class="divider-custom divider-light">
+                <div class="divider-custom-line"></div>
+                <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+                <div class="divider-custom-line"></div>
+            </div>
+                <!-- About Section Content-->
+            <div class="row">
+                <div class="col-lg-4 ms-auto"><p class="lead">Vyplněním následujího <a href="templator#templator" style="background-color:powderblue">formuláře</a> můžete vytvořit návrh vlastního webu. K tomu slouží šablona Freelancer a další, které jsou zdarma dostupné a usnadňují výchozí webdesign. Ke stažení jsou kompletní zdrojové soubory včetně HTML, CSS a JavaScriptu.</p></div>
+                <div class="col-lg-4 me-auto"><p class="lead">Můžete si tak vytvořit návrh pro design webu vycházejícího z těchto šablon, obsahující Vaše vlastní údaje, doplnit web obsahem a využít dalších prvků, například plně funkčního kontaktního formuláře!</p></div>
+            </div>
+                <!-- About Section Button-->
+            <div class="text-center mt-4">
+                <a class="btn btn-xl btn-outline-light" href="https://startbootstrap.com/?showPro=false" target="_blank">
+                    <i class="fas fa-download me-2"></i>
+                    Bootstrap templates!
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="page-section" id="contact">
+        <div class="container">
+                <!-- Contact Section Heading-->
+            <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Ozvěte se</h2>
+                <!-- Icon Divider-->
+            <div class="divider-custom">
+                <div class="divider-custom-line"></div>
+                <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+                <div class="divider-custom-line"></div>
+            </div>
+                <!-- Contact Section Form-->
+            <div class="row justify-content-center">
+                <div class="col-lg-8 col-xl-7">
+                        <!-- * * * * * * * * * * * * * * *-->
+                        <!-- * * SB Forms Contact Form * *-->
+                        <!-- * * * * * * * * * * * * * * *-->
+                        <!-- This form is pre-integrated with SB Forms.-->
+                        <!-- To make this form functional, sign up at-->
+                        <!-- https://startbootstrap.com/solution/contact-forms-->
+                        <!-- to get an API token!-->
+                    <form id="contactForm" data-sb-form-api-token="API_TOKEN">
+                            <!-- Name input-->
+                        <div class="form-floating mb-3">
+                            <input class="form-control" id="name" type="text" placeholder="Enter your name..." data-sb-validations="required" />
+                            <label for="name">Celé jméno</label>
+                            <div class="invalid-feedback" data-sb-feedback="name:required">A name is required.</div>
+                        </div>
+                            <!-- Email address input-->
+                        <div class="form-floating mb-3">
+                            <input class="form-control" id="email" type="email" placeholder="name@example.com" data-sb-validations="required,email" />
+                            <label for="email">Emailová adresa</label>
+                            <div class="invalid-feedback" data-sb-feedback="email:required">An email is required.</div>
+                            <div class="invalid-feedback" data-sb-feedback="email:email">Email is not valid.</div>
+                        </div>
+                            <!-- Phone number input-->
+                        <div class="form-floating mb-3">
+                            <input class="form-control" id="phone" type="tel" placeholder="(123) 456-7890" data-sb-validations="required" />
+                            <label for="phone">Telefonní číslo</label>
+                            <div class="invalid-feedback" data-sb-feedback="phone:required">A phone number is required.</div>
+                        </div>
+                            <!-- Message input-->
+                        <div class="form-floating mb-3">
+                            <textarea class="form-control" id="message" type="text" placeholder="Enter your message here..." style="height: 10rem" data-sb-validations="required"></textarea>
+                            <label for="message">Vaše zpráva</label>
+                            <div class="invalid-feedback" data-sb-feedback="message:required">A message is required.</div>
+                        </div>
+                            <!-- Submit success message-->
+                            <!---->
+                            <!-- This is what your users will see when the form-->
+                            <!-- has successfully submitted-->
+                        <div class="d-none" id="submitSuccessMessage">
+                            <div class="text-center mb-3">
+                                <div class="fw-bolder">Form submission successful!</div>
+                                To activate this form, sign up at
+                                <br />
+                                <a href="https://startbootstrap.com/solution/contact-forms">https://startbootstrap.com/solution/contact-forms</a>
+                            </div>
+                        </div>
+                            <!-- Submit error message-->
+                            <!---->
+                            <!-- This is what your users will see when there is-->
+                            <!-- an error submitting the form-->
+                        <div class="d-none" id="submitErrorMessage"><div class="text-center text-danger mb-3">Error sending message!</div></div>
+                            <!-- Submit Button-->
+                        <button class="btn btn-primary btn-xl disabled" id="submitButton" type="submit">Odeslat</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+        <!-- Footer-->
+    <footer class="footer text-center">
+        <div class="container">
+            <div class="row">
+                    <!-- Footer Location-->
+                <div class="col-lg-4 mb-5 mb-lg-0">
+                    <h4 class="text-uppercase mb-4">Adresa</h4>
+                    <p class="lead mb-0">
+                        Ondřej Kropáč
+                        <br />
+                        Chromeč 126, 78901
+                    </p>
+                </div>
+                    <!-- Footer Social Icons-->
+                <div class="col-lg-4 mb-5 mb-lg-0">
+                    <h4 class="text-uppercase mb-4">Around the Web</h4>
+                    <a class="btn btn-outline-light btn-social mx-1" href="#!"><i class="fab fa-fw fa-facebook-f"></i></a>
+                    <a class="btn btn-outline-light btn-social mx-1" href="#!"><i class="fab fa-fw fa-twitter"></i></a>
+                    <a class="btn btn-outline-light btn-social mx-1" href="#!"><i class="fab fa-fw fa-linkedin-in"></i></a>
+                    <a class="btn btn-outline-light btn-social mx-1" href="#!"><i class="fab fa-fw fa-dribbble"></i></a>
+                </div>
+                    <!-- Footer About Text-->
+                <div class="col-lg-4">
+                    <h4 class="text-uppercase mb-4">Vzory šablon</h4>
+                    <p class="lead mb-0">
+                        Šablony mohou zůstat v původní podobě nebo budou vyplněny zadanými informacemi.
+                        <a href="http://startbootstrap.com">Templates farm</a>
+                        .
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+        <!-- Copyright Section-->
+    <div class="copyright py-4 text-center text-white">
+        <div class="container"><small>Copyright &copy; Yes Web 2023</small></div>
+    </div>
+        <!-- Links Modals-->
+        <!-- Links Modal 1-->
+    <div class="portfolio-modal modal fade" id="portfolioModal1" tabindex="-1" aria-labelledby="portfolioModal1" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header border-0"><button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button></div>
+                <div class="modal-body text-center pb-5">
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-8">
+                                    <!-- Links Modal - Title-->
+                                <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0">Mostudio</h2>
+                                    <!-- Icon Divider-->
+                                <div class="divider-custom">
+                                    <div class="divider-custom-line"></div>
+                                    <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+                                    <div class="divider-custom-line"></div>
+                                </div>
+                                <a href="../templates/mostudio/index.html" title="temp Mostudio">
+                                    <button class="btn btn-primary" data-bs-dismiss="modal">
+                                        <i class="fas fa-xmark fa-link"></i>
+                                        Otevřít MOS template
+                                    </button>
+                                </a>
+                                <br /><br />
+                                    <!-- Links Modal - Image-->
+                                <img class="img-fluid rounded mb-5" src="../assets/img/portfolio/cabin.png" alt="..." />
+                                    <!-- Links Modal - Text-->
+                                <p class="mb-4">Černé pozadí, postranní menu a informace o tvorbě a službách.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+        <!-- Links Modal 2-->
+    <div class="portfolio-modal modal fade" id="portfolioModal2" tabindex="-1" aria-labelledby="portfolioModal2" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header border-0"><button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button></div>
+                <div class="modal-body text-center pb-5">
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-8">
+                                    <!-- Links Modal - Title-->
+                                <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0">Grayscale</h2>
+                                    <!-- Icon Divider-->
+                                <div class="divider-custom">
+                                    <div class="divider-custom-line"></div>
+                                    <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+                                    <div class="divider-custom-line"></div>
+                                </div>
+                                <a href="../templates/grayscale/index.html" title="temp Greyscale">
+                                    <button class="btn btn-primary" data-bs-dismiss="modal">
+                                        <i class="fas fa-xmark fa-link"></i>
+                                        Otevřít Greyscale template
+                                    </button>
+                                </a>
+                                <br /><br />
+                                    <!-- Links Modal - Image-->
+                                <img class="img-fluid rounded mb-5" src="../assets/img/portfolio/cake.png" alt="..." />
+                                    <!-- Links Modal - Text-->
+                                <p class="mb-4">Zakladní rozvržení - vše na jedné stránce</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+        <!-- Links Modal 3-->
+    <div class="portfolio-modal modal fade" id="portfolioModal3" tabindex="-1" aria-labelledby="portfolioModal3" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header border-0"><button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button></div>
+                <div class="modal-body text-center pb-5">
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-8">
+                                    <!-- Links Modal - Title-->
+                                <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0">Personel</h2>
+                                    <!-- Icon Divider-->
+                                <div class="divider-custom">
+                                    <div class="divider-custom-line"></div>
+                                    <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+                                    <div class="divider-custom-line"></div>
+                                </div>
+                                <a href="../templates/personal/index.html" title="temp Personel">
+                                    <button class="btn btn-primary" data-bs-dismiss="modal">
+                                        <i class="fas fa-xmark fa-link"></i>
+                                        Otevřít Personel template
+                                    </button>
+                                </a>
+                                <br /><br />
+                                    <!-- Links Modal - Image-->
+                                <img class="img-fluid rounded mb-5" src="../assets/img/portfolio/circus.png" alt="..." />
+                                    <!-- Links Modal - Text-->
+                                <p class="mb-4">Tmavá prezentace s detaily o zkušenostech a nabídkou služeb.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+        <!-- Links Modal 4-->
+    <div class="portfolio-modal modal fade" id="portfolioModal4" tabindex="-1" aria-labelledby="portfolioModal4" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header border-0"><button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button></div>
+                <div class="modal-body text-center pb-5">
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-8">
+                                    <!-- Links Modal - Title-->
+                                <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0">Folio</h2>
+                                    <!-- Icon Divider-->
+                                <div class="divider-custom">
+                                    <div class="divider-custom-line"></div>
+                                    <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+                                    <div class="divider-custom-line"></div>
+                                </div>
+                                <a href="../templates/folio/index.html" title="temp Personel">
+                                    <button class="btn btn-primary" data-bs-dismiss="modal">
+                                        <i class="fas fa-xmark fa-link"></i>
+                                        Otevřít Folio template
+                                    </button>
+                                </a>
+                                <br /><br />
+                                    <!-- Links Modal - Image-->
+                                <img class="img-fluid rounded mb-5" src="../assets/img/portfolio/folio.png" alt="..." />
+                                    <!-- Links Modal - Text-->
+                                <p class="mb-4">Jednoduchá prezentace obsahující galerií, informace a blog. </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+        <!-- Links Modal 5-->
+    <div class="portfolio-modal modal fade" id="portfolioModal5" tabindex="-1" aria-labelledby="portfolioModal5" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header border-0"><button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button></div>
+                <div class="modal-body text-center pb-5">
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-8">
+                                    <!-- Links Modal - Title-->
+                                <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0">Magmun</h2>
+                                    <!-- Icon Divider-->
+                                <div class="divider-custom">
+                                    <div class="divider-custom-line"></div>
+                                    <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+                                    <div class="divider-custom-line"></div>
+                                </div>
+                                <a href="../templates/magnum/index.html" title="temp Personel">
+                                    <button class="btn btn-primary" data-bs-dismiss="modal">
+                                        <i class="fas fa-xmark fa-link"></i>
+                                        Otevřít Magnum template
+                                    </button>
+                                </a>
+                                <br /><br />
+                                <!-- Links Modal - Image-->
+                                <img class="img-fluid rounded mb-5" src="../assets/img/portfolio/magnum.png" alt="..." />
+                                    <!-- Links Modal - Text-->
+                                <p class="mb-4">Jednostránkové rozvržení se základními informacemi.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+        <!-- Links Modal 6-->
+    <div class="portfolio-modal modal fade" id="portfolioModal6" tabindex="-1" aria-labelledby="portfolioModal6" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header border-0"><button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button></div>
+                <div class="modal-body text-center pb-5">
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-8">
+                                    <!-- Links Modal - Title-->
+                                <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0">Minimus</h2>
+                                    <!-- Icon Divider-->
+                                <div class="divider-custom">
+                                    <div class="divider-custom-line"></div>
+                                    <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+                                    <div class="divider-custom-line"></div>
+                                </div>
+                                <a href="../templates/minimus/index.html" title="temp Personel">
+                                    <button class="btn btn-primary" data-bs-dismiss="modal">
+                                        <i class="fas fa-xmark fa-link"></i>
+                                        Otevřít Minimus template
+                                </button>
+                                <br /><br />
+                            
+                                    <!-- Links Modal - Image-->
+                                <img class="img-fluid rounded mb-5" src="../assets/img/portfolio/submarine.png" alt="..." />
+                                    <!-- Links Modal - Text-->
+                                <p class="mb-4">Jednoduché rozvržení s výraznou galerií vystavených položek/obrázků obsahující základní informace a blog. Minimalistická prezentace... </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="js/scripts.js"></script>
+        <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+        <!-- * *                               SB Forms JS                               * *-->
+        <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
+        <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+        <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+</body>
+</html>

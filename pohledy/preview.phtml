@@ -1,0 +1,92 @@
+        <!-- Přehled Section-->
+        <section class="page-section bg-primary text-white mb-0" id="summary">
+            <div class="container">
+                <!-- About Section Heading-->
+                <?php if (isset($active_url)) : ?>
+                    <p class="text-center">Název aktuálního profilu:</p>
+                    <h2 class="page-section-heading text-center text-uppercase text-white"><?= $temp['titulek'] ?></h2>
+                <?php else : ?>
+                        <p class="text-center">Nastavení profilu:</p>
+                        <h2 class="page-section-heading text-center text-uppercase text-white">Vyberte profil pro nahrání do templatu</h2>
+                <?php endif ?>
+                <?php if (isset($active_url)) : ?>
+                    <p class="lead text-center"><?php if (isset($temp['obsah'])) : ?><?= $temp['obsah'] ?><?php endif ?> </p>
+                <?php endif ?>
+                <!-- Icon Divider-->
+                <div class="divider-custom divider-light">
+                    <div class="divider-custom-line"></div>
+                    <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+                    <div class="divider-custom-line"></div>
+                </div>
+                <!-- About Section Content-->
+                <div class="row">
+					<div class="col-lg-4 ms-auto">
+                        <?php if ((empty($user_name))&(isset($publicUsers))) : ?>
+                        <p class="text-center">Dostupní autoři:</p>
+                            <?php foreach ($publicUsers as $pubUser) : ?>
+                                    <a class="btn btn-outline-danger btn-lg text-uppercase d-flex align-items-center disabled" href="template/<?= $usersIds [$pubUser][0] ?>#summary" title="<?= $user_name ?>" style="background-color:warning"><?= $pubUser ?></a>
+                                <?php endforeach ?>
+                            <br />
+
+                        <?php else : ?>
+                            <p class="lead">Výpis dostupných uživatelských učtů.
+						    <br /><br />
+                            <?php if ($admin) : ?>
+                                <?php foreach ($users as $user) : ?>
+                                    <a class="btn btn-outline-danger btn-lx text-uppercase" href="template/<?= $user['uzivatele_id'] ?>#summary" title="Zobrazit dostupný obsah tohoto uživatele" style="background-color:warning"><?= $user['jmeno'] ?></a>
+                                <?php endforeach ?>
+                                Žádní další uživatelé nejsou nastaveni jako veřejní.
+                            <?php elseif (empty($uzivatel['jmeno'])): ?>
+                                <button type="button" class="btn btn-outline-secondary btn-lg text-uppercase" disabled>Žádný další dostupný obsah. Přihlaste se...
+                                </button>
+                            <?php else : ?>
+                                <a class="btn btn-outline-danger btn-lx text-uppercase" href="template/<?= $uzivatel['uzivatele_id'] ?><?= $temp_url ?>/#summary" title="Zobrazit dostupný obsah tohoto uživatele" style="background-color:warning"><?= $uzivatel['jmeno'] ?></a>
+                            <?php endif ?>
+                            <br />
+						<?php endif ?>
+                        <?php if (!empty($temp_url)) : ?> 
+                            <p class="lead">Odkazy na návrhy podle zvoleného profilu: </p>
+                            <?php if (isset($user_url)) : ?> <?php $set_user = $user_url ?><?php endif ?>
+                            <a class="btn btn-outline-success btn-sm text-uppercase" href="template/gray<?= $temp_url ?>/<?=$set_user ?>" title="" style="background-color:powderblue">Grayscale</a>
+                            <a class="btn btn-outline-success btn-sm text-uppercase" href="template/most<?= $temp_url ?>/<?=$set_user ?>" title="" style="background-color:powderblue">Mostudio</a>
+                            <a class="btn btn-outline-success btn-sm text-uppercase" href="template/pers<?= $temp_url ?>/<?=$set_user ?>" title="" style="background-color:powderblue">Personel</a>
+                        <?php endif ?>
+						<br />
+                        <?php if ((empty($temp_url))) : ?>
+                            <button type="button" class="btn btn-warning btn-outline-warning text-uppercase" disabled>
+								Vyberte profil <i class="fa-regular fa-circle-right fa-2xl"></i>
+                            </button>
+						<?php endif ?>
+					</div>
+
+<!-- LEVÁ PŮLKA ŠABLONY-->
+                    <div class="col-lg-4 me-auto">
+                        <p class="lead">Výpis uživatelských nastavení.
+                        <?php if (empty($temps)) : ?>
+                            <br />
+                            <br />
+                            <a href="templator#templator"  class="btn btn-white" style="background-color:powderblue">Nový webdesign návrh</a>
+                        <?php else : ?>
+                            <?php foreach ($temps as $temp) : ?>
+                                <tr>
+                                    <td>
+                                    <div class="row">
+                                        <div class="col">
+                                            <h5><a href="template/<?= $user_url ?>/<?= $temp['url'] ?>#summary" class="btn btn-light btn-outline-warning btn-lg text-uppercase <?php if (($active_url)==$temp['url']) : ?> disabled <?php endif ?>" title="<?= $temp['url'] ?>" ><?= $temp['titulek'] ?></a></h5>
+                                        </div>
+                                        <?php if (($admin)||($temp['jmeno'] == $user_name)) : ?>
+                                        <div class="col">
+                                            <a href="templator/<?= $temp['url'] ?>#templator" class="btn btn-light btn-outline-secondary  btn-lg text-uppercase">Edit</a>
+                                        </div>
+                                        <?php endif ?>
+                                    </div>
+                                        <?= $temp['popisek'] ?>
+                                    </td>
+                                </tr>
+                            <?php endforeach ?>
+                        <?php endif ?>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>

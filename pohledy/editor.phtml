@@ -1,0 +1,42 @@
+<h1>Editor článků</h1>
+
+<form method="post">
+	<input type="hidden" name="clanky_id" value="<?= $clanek['clanky_id'] ?>" />
+	Titulek<br />
+	<input type="text" name="titulek" value="<?= $clanek['titulek'] ?>" /><br />
+	URL<br />
+	<input type="text" name="url" value="<?= $clanek['url'] ?>" /><br />
+	Popisek<br />
+	<input type="text" name="popisek" value="<?= $clanek['popisek'] ?>" /><br />
+	Klíčová slova<br />
+	<input type="text" name="klicova_slova" value="<?= $clanek['klicova_slova'] ?>" /><br />
+	<textarea id="obsah" name="obsah"><?= $clanek['obsah'] ?></textarea>
+	<input type="submit" value="Uložit článek" />
+</form>
+
+<script src="/tinymce/tinymce.min.js"></script>
+<script src="/tinymce/jquery.tinymce.min.js"></script>
+
+<script type="text/javascript">
+	// Nastavení použité pro TinyMCE 5.7.1
+	tinymce.init({
+
+		selector: '#obsah', // Altenativní zápis: `selector: 'textarea[name=obsah]'` nebo pouze 'textarea'
+		language: 'cs',
+		toolbar_mode: 'sliding',
+
+		// Doporučené, vypíná převod české diakritiky na entity, šetří místo v tabulce, chceme text formátovat do html tagů
+		entities: '160,nbsp',
+		entity_encoding: 'named',
+
+		// Doporučené
+		plugins: [
+			"advlist autolink lists link image charmap print preview anchor",	
+			"searchreplace visualblocks code fullscreen",	
+			"insertdatetime media table contextmenu paste"
+		],
+
+		// Doporučené
+		toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
+	});
+</script>

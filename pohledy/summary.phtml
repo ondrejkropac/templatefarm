@@ -1,0 +1,181 @@
+        <!-- Přehled Section-->
+        <section class="page-section bg-primary text-white mb-0" id="summary">
+            <div class="container">
+                <!-- About Section Heading-->
+                <?php if (isset($active_url)) : ?>
+                    <p class="text-center">Název aktuálního profilu:</p>
+                    <h2 class="page-section-heading text-center text-uppercase text-white"><?= $temp['titulek'] ?></h2>
+                <?php else : ?>
+                <!-- Uvodní informace pro vybraného uživatele(isset($user_name)) nebo výzva k přihlášení-->
+                    <?php if (isset($user_name)) : ?>
+                        <p class="text-center">Nastavení profilu:</p>
+                        <h2 class="page-section-heading text-center text-uppercase text-white">Vyberte profil pro nahrání do templatu</h2>
+					<?php else : ?>
+                        <p class="text-center">Nastavení uživatele:</p>
+                        <button type="button" class="btn btn-outline-info btn-lg text-uppercase" disabled>
+							prohlížení dat bez zvoleného uživatele</button> 
+                        <button type="button" class="btn btn-outline-danger btn-lg text-uppercase" disabled>
+							Pro editaci zvolte uživatele</button> 
+                        <button type="button" class="btn btn-outline-warning btn-lg text-uppercase" disabled>
+							Pro nabídku webdesignů vyberte profil</button> 
+					<?php endif ?>
+                <?php endif ?>
+                <?php if (isset($active_url)) : ?>
+                    <p class="lead text-center"><?php if (isset($temp['obsah'])) : ?><?= $temp['obsah'] ?><?php endif ?> </p>
+                <?php endif ?>
+                <!-- Icon Divider-->
+                <div class="divider-custom divider-light">
+                    <div class="divider-custom-line"></div>
+                    <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+                    <div class="divider-custom-line"></div>
+                </div>
+                <!-- About Section Content-->
+                <div class="row">
+					<div class="col-lg-4 ms-auto">
+                        <!-- základní výpis všech veřejných autorů -->
+                        <?php if ((empty($user_name))&(isset($publicUsers))&(!$admin)) : ?>
+                            <button type="button" class="btn btn-outline-danger text-uppercase" disabled>
+								Veřejní autoři
+                            </button>
+                            <?php foreach ($publicUsers as $user) : ?>
+                                <a class="btn btn-outline-danger btn text-uppercase" href="template/<?= $usersIds [$user][0] ?><?= $temp_url ?>#summary" title="Zobraz uživatele" style="background-color:warning"><?= $user ?></a>
+                            <?php endforeach ?>
+                
+                            <!-- doplnění odkazu na přihlášeného /neveřejného/ uživatele -->
+                            <?php if ((isset($uzivatel['jmeno']))&($logedinUserPublicy != 'public')) : ?>
+                                <br /><br />
+                                <a class="btn btn-outline-danger btn-lg text-uppercase" href="template/<?= $uzivatel['uzivatele_id'] ?><?= $temp_url ?>/#summary" title="Odkaz na přihlášeného uživatele" style="background-color:warning">Přihlášený <?= $uzivatel['jmeno'] ?></a>
+                            <?php endif ?>
+                            <br />
+                        
+                        <!-- výpis samotného veřejného autora -->
+                        <?php elseif ($userPublicy == 'public') : ?>
+                            <button type="button" class="btn btn-outline-danger text-uppercase" disabled>
+                                Uživatel <?= $user_name ?>
+                            </button>
+                            <p> Je nastavený jako veřejný.</p>
+                            <a href="template/<?= $user_url ?>/setprivacy#summary" class="btn btn-light btn-outline-primary  btn-lg text-uppercase">Stažení</a>
+                        
+                        <!-- výpis zvoleného uživatele -->
+                        <?php elseif (isset($user_name)) : ?>
+                            <?php if (($uzivatel['jmeno'] == $user_name)||($usePrivatUrl == $user_url)): ?>
+                                <button type="button" class="btn btn-outline-danger text-uppercase" disabled>
+                                    Uživatel <?= $user_name ?>
+                                </button>
+                                <?php if (!empty($temps)) : ?>
+                                    <a href="templator//<?= $idUrl ?>#templator"  class="btn btn-white" style="background-color:powderblue">Nový webdesign návrh</a>
+                                <?php endif ?>
+                                <br />
+                                <br />
+                                <?php if ($usePrivatUrl) : ?>
+                                    <a href="template/<?= $usePrivatUrl ?>#summary" class="btn btn-light btn-outline-secondary btn-sm text-uppercase" title="Zadáním odkazu do vyhledávače se dostanete ke svým datům bez přihlášení">Odkaz: template/<?= $usePrivatUrl ?></a>
+                                <?php endif ?>
+                                <?php if (($actualUser['role'] != 'public')) :?> 
+                                    <a href="template/<?= $user_url ?>/setprivacy#summary" class="btn btn-light btn-outline-primary btn-sm  text-uppercase" title="Po zveřejnění bude profil dostupný /v přehledu/ všem">Zveřejnit</a>
+                                <?php elseif ($actualUser['role'] == 'public') :?>
+                                    <a href="template/<?= $user_url ?>/setprivacy#summary" class="btn btn-light btn-outline-primary btn-sm  text-uppercase">Stažení</a>
+                                <?php endif ?>
+                            <?php else : ?>
+                                Tento užitel je dostupný pouze po přihlášení!
+                            <?php endif ?>
+                                <br />
+                                <br />
+                            <a class="btn btn-outline-info btn-lx text-uppercase" href="template/all<?= $temp_url ?>#summary" title="ZPĚT NA VŠECHNY DOSTUPNÉ" style="background-color:warning">Výpis dalších uživatelů a nastavení<i class="fa-solid fa-reply-all fa-2xl"></i></a>
+                        <!-- výpis ostatních - admin, bez dostupného uživ. a přihlášený uživatel -->
+                        <?php else : ?>
+                            <p class="lead">Výpis dostupných uživatelských učtů.
+						    <br /><br />
+                            <?php if ($admin) : ?>
+                                <?php foreach ($users as $user) : ?>
+                                    <a class="btn btn-outline-danger btn-lx text-uppercase" href="template/<?= $user['uzivatele_id'] ?>#summary" title="Zobrazit dostupný obsah tohoto uživatele" style="background-color:warning"><?= $user['jmeno'] ?></a><!--?= $temp_url ? za id uživatele byl i profil - BUG!!!-->
+                                <?php endforeach ?>
+                            <?php elseif (empty($uzivatel['jmeno'])): ?>
+                                <button type="button" class="btn btn-outline-secondary btn-lg text-uppercase" disabled>Žádný další dostupný obsah. Přihlaste se... 
+                                </button>
+                            <?php else : ?>
+                                <a class="btn btn-outline-danger btn-lx text-uppercase" href="template/<?= $uzivatel['uzivatele_id'] ?><?= $temp_url ?>/#summary" title="Zobrazit dostupný obsah tohoto uživatele" style="background-color:warning"><?= $uzivatel['jmeno'] ?></a>
+                                
+                            <?php endif ?>
+                            <br />
+                            <br />
+                            <button type="button" class="btn btn-warning btn-outline-info  btn-lg text-uppercase" title="Pro zpřístupnění návrhů webu - vyber nastavení" disabled>
+								dostupné nastavení <i class="fa-regular fa-circle-right fa-2xl"></i>
+                            </button> 
+						<?php endif ?>
+						<br />
+                        <?php if (!empty($temp_url)) : ?> 
+                            <p class="lead">Odkazy na návrhy podle zvoleného profilu: </p>
+                            <?php if (isset($user_url)) : ?> <?php $set_user = $user_url ?><?php endif ?>
+                            <a class="btn btn-outline-success btn-sm text-uppercase" href="template/gray<?= $temp_url ?>/<?=$set_user ?>" title="" style="background-color:powderblue">Grayscale</a>
+                            <a class="btn btn-outline-success btn-sm text-uppercase" href="template/most<?= $temp_url ?>/<?=$set_user ?>" title="" style="background-color:powderblue">Mostudio</a>
+                            <a class="btn btn-outline-success btn-sm text-uppercase" href="template/pers<?= $temp_url ?>/<?=$set_user ?>" title="" style="background-color:powderblue">Personel</a>
+                        <?php endif ?>
+						<br />
+					</div>
+
+        <!-- LEVÁ PŮLKA ŠABLONY-->
+
+                    <div class="col-lg-4 me-auto">
+                        <?php if (empty($temps)) : ?>
+                            <p class="text-center">Pro zobrazení návrhu webu je nezbytné nejprve vyplnit formulář.
+                            <br />
+                            <br />
+                            <a href="templator#templator"  class="btn btn-white" style="background-color:powderblue">Nový webdesign návrh</a>
+                        <?php else : ?>
+                            <!-- přehled profilů/nastavení dostupných pro zvoleného uživatele -->
+                            <?php if ((isset($user_name))) : ?>
+                                <?php if (($uzivatel['jmeno'] == $user_name)||($usePrivatUrl == $user_url)||($userPublicy == 'public')) : ?>
+                                    <p class="lead">Výpis uživatelských nastavení.
+                                    <?php foreach ($temps as $temp) : ?>
+                                        <tr>
+                                            <td>
+                                            <div class="row">
+                                                <div class="col">
+                                                    <h5><a href="template/<?= $user_url ?>/<?= $temp['url'] ?>#summary" class="btn btn-light btn-outline-warning btn-lg text-uppercase <?php if (($active_url)==$temp['url']) : ?> disabled <?php endif ?>" title="<?= $temp['url'] ?>" ><?= $temp['titulek'] ?></a></h5>
+                                                    <?php if (($temp['privacy'] == 'public')||($temp['privacy'] == 'public_user')) :?>
+                                                        <a href="template/<?= $user_url ?>/<?= $temp['url'] ?>/setprivacy#summary" class="btn btn-light btn-outline-primary btn-sm text-uppercase">Stažení</a>
+                                                    <?php elseif ($temp['privacy'] == ' ') :?>
+                                                        <a href="template/<?= $user_url ?>/<?= $temp['url'] ?>/setprivacy#summary" class="btn btn-light btn-outline-primary btn-sm text-uppercase">Zveřejnění <?= $temp['titulek'] ?></a>
+                                                    <?php endif ?>
+                                                </div>
+                                                <?php if (($admin)||($temp['jmeno'] == $user_name)||($usePrivatUrl == $user_url)) : ?>
+                                                <div class="col">
+                                                    <a href="templator/<?= $temp['url'] ?>#templator" class="btn btn-light btn-outline-secondary  btn-lg text-uppercase">Edit</a>
+                                                </div>
+                                                <?php endif ?>
+                                            </div>
+                                                <?= $temp['popisek'] ?>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach ?>
+                                <?php endif ?>
+                            <?php elseif ((isset($publicTemps))||($userPublicy)) : ?>
+                                <p class="lead">Výpis veřejných nastavení.
+                                <?php foreach ($temps as $temp) : ?>
+                                        <tr>
+                                            <td>
+                                            <div class="row">
+                                                <div class="col">
+                                                    <h5><a href="template/<?= $user_url ?>/<?= $temp['url'] ?>#summary" class="btn btn-light btn-outline-warning btn-lg text-uppercase <?php if (($active_url)==$temp['url']) : ?> disabled <?php endif ?>" title="<?= $temp['url'] ?>" ><?= $temp['titulek'] ?></a></h5>
+                                                    <?php if (($temp['privacy'] == 'public')) :?>
+                                                        <a href="template/<?= $user_url ?>/<?= $temp['url'] ?>/setprivacy#summary" class="btn btn-light btn-outline-primary text-uppercase">Zvěřejnění autora</a>
+                                                    <?php elseif ($temp['privacy'] == 'public_user') :?>
+                                                        <a href="template/<?= $user_url ?>/<?= $temp['url'] ?>/setprivacy#summary" class="btn btn-light btn-outline-primary btn-lg text-uppercase">Stažení</a>
+                                                    <?php elseif (($temp['privacy'] == ' ')||(isset($uzivatel)&($uzivatel['jmeno'])!='')) :?>
+                                                        <a href="template/<?= $user_url ?>/<?= $temp['url'] ?>/setprivacy#summary" class="btn btn-light btn-outline-primary text-uppercase">Zveřejnění</a>
+                                                    <?php endif ?>
+                                                </div>
+                                            </div>
+                                                <?= $temp['popisek'] ?>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach ?>
+                            <?php else : ?>
+                                Veřejně dostupné nastavení nenalezeny.
+                            <?php endif ?>
+                        <?php endif ?>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>

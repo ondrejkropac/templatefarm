@@ -1,0 +1,89 @@
+
+<section class="page-section bg-primary text-white mb-0" id="templator">
+    <div class="container">
+		<h1>Editor obsahu webdesignů</h1>
+
+		<form method="post" enctype="multipart/form-data">
+			<div class= "row">
+				<div class = "col">
+					<input type="hidden" name="temp_id" value="<?= $temp['temp_id'] ?>" />
+					<input type="hidden" name="user_name" value="<?= $temp['user_name'] ?>" />
+					Jméno / Značka<br />
+					<input type="text" name="jmeno" value="<?= $temp['jmeno'] ?>" /><br />
+					Titulek<br />
+					<input type="text" name="titulek" value="<?= $temp['titulek'] ?>" /><br />
+					URL - návrh webové adresy<br />
+					<input type="text" name="url" value="<?= $temp['url'] ?>" /><br />
+					Klíčová slova / čárkou oddělené kategorie portfólia<br />
+					<input type="text" name="klicova_slova" value="<?= $temp['klicova_slova'] ?>" /><br />
+				</div>
+				<div class = "col">
+					E-mail<br />
+					<input type="text" name="mail" value="<?= $temp['mail'] ?>" /><br />
+					<?php if ($temp['mail']) :?>          
+						Popisek (krátký popis platformy)<br />
+						<input type="text" name="popisek" value="<?= $temp['popisek'] ?>" />
+					<?php else : ?>
+						Při vyplnění je možné odeslat vyplněné nebo přihlašovací údaje na e-mail<br />
+					<?php endif ?>
+					<?php if ($temp['titulek']) :?>          
+						<br />Sociální sítě<br />
+						<input type="text" name="socky" value="<?= $temp['socky'] ?>" /><br />      
+					<?php else : ?>
+						Pro další popis webu a sociálních sítí doplňte slogan, přezdívku nebo heslo spojené s provozováním webu.<br /><br />
+					<?php endif ?>
+				</div>
+				<?php if ($temp['klicova_slova']) :?>  
+					<div class = "col">
+					Telefon<br />
+					<input type="text" name="tel" value="<?= $temp['tel'] ?>" /><br />
+					Adresa<br />
+					<input type="text" name="adresa" value="<?= $temp['adresa'] ?>" /><br />            
+					Projekty<br />
+					<input type="text" name="proj" value="<?= $temp['proj'] ?>" /><br />           
+					Zkušenosti<br />
+					<input type="text" name="exp" value="<?= $temp['exp'] ?>" /><br />   
+				</div> 
+				<?php endif ?>
+			</div>
+				Delší text pro popis prezentovaného<br />
+				<textarea id="obsah" name="obsah"><?= $temp['obsah'] ?></textarea>
+				
+				<div class= "row">
+					<div class = "col">
+					<input name="upload[]" type="file" multiple="multiple" />
+					</div>
+					<div class = "col d-flex justify-content-end">
+					<input type="submit" value="Uložit článek" />
+				</div> 
+			</div>
+		</form>
+    </div>
+</section>
+
+<script src="/tinymce/tinymce.min.js"></script>
+<script src="/tinymce/jquery.tinymce.min.js"></script>
+
+<script type="text/javascript">
+	// Nastavení použité pro TinyMCE 5.7.1
+	tinymce.init({
+
+		selector: '#obsah', // Altenativní zápis: `selector: 'textarea[name=obsah]'` nebo pouze 'textarea'
+		language: 'cs',
+		toolbar_mode: 'sliding',
+
+		// Doporučené, vypíná převod české diakritiky na entity, šetří místo v tabulce, chceme text formátovat do html tagů
+		entities: '160,nbsp',
+		entity_encoding: 'named',
+
+		// Doporučené
+		plugins: [
+			"advlist autolink lists link image charmap print preview anchor",	
+			"searchreplace visualblocks code fullscreen",	
+			"insertdatetime media table contextmenu paste"
+		],
+
+		// Doporučené
+		toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
+	});
+</script>

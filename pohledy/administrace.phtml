@@ -1,0 +1,11 @@
+<section class="page-section bg-primary text-white mb-0" id="login">
+    <div class="container">
+		<p>Vítejte v administraci, jste přihlášeni jako <?= $jmeno ?></p>
+		<?php if (!$admin) : ?>
+			<p>Nemáte administrátorská oprávnění, požádejte administrátora webu, aby vám je přidělil.</p>
+		<?php endif ?>
+		<h2><a href="editor" style="background-color:powderblue">Editor článků</a></h2>
+		<h2><a href="clanek" style="background-color:powderblue">Seznam článků</a></h2>
+		<h2><a href="administrace/odhlasit" style="background-color:powderblue">Odhlásit</a></h2>
+	</div>
+</section>
